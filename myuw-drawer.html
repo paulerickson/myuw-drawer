@@ -11,13 +11,79 @@
 				this._root.innerHTML = `
 					<style>
 						@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+						:host {
+							height: 100%;
+							width: 100%;
+							left:-300px;
+							top: 56px;
+							position: absolute;
+							transition: all .4s cubic-bezier(.25, .8, .25, 1);
+						}
+						:host([open]) {
+							left:0;
+						}
+						.drawer {
+							width: 300px;
+							max-width: 300px;
+							height: 100%;
+							z-index: 5;
+							box-shadow: 3px 0 16px -3px rgba(0, 0, 0, 0.4);
+						}
+						.drawer .content ul#list-container {
+							padding: 8px 0;
+							list-style: none;
+							margin: 0;
+						}
+						.drawer .content ul#list-container .item {
+							height: 48px;
+						}
+						.drawer .content ul#list-container .item a {
+							box-sizing: border-box;
+							text-decoration:none;
+							text-align: left;
+							display: inline-block;
+							margin: auto 0;
+							font-size: 15px;
+							text-transform: none;
+							font-weight: 400;
+							height: 100%;
+							padding-top: 5px;
+							padding-left: 16px;
+							padding-right: 16px;
+							width: 100%;
+						}
+						.drawer .content ul#list-container .item a:hover{
+							background-color: rgba(158,158,158,0.2);
+						}
+						.drawer .content ul#list-container .item a span {
+							line-height:36px;
+							cursor:ponter;
+							font-size: 15px;
+							font-weight: 400;
+						}
+						.drawer .content ul#list-container .item a .material-icons {
+							margin-right: 16px;
+							vertical-align: middle;
+							color: rgba(0,0,0,0.54);
+						}
+						.drawer .content ul#list-container .item.subheader {
+							padding: 16px;
+							font-weight: bold;
+							height: 100%;
+							color: rgba(0,0,0,0.54);
+							background-color:rgb(250,250,250);
+						}
 					</style>
-					<ul id="list-container"></ul>
+					<div class="drawer"><div class="content"><ul id="list-container"></ul></div></div>
 				`;
 
 				this._list = [
-					{ name: 'Google', icon: 'mail', href: 'http://google.com' },
-					{ name: 'Learn', icon: 'warning', href:'http://google.com'}
+					{ name: 'MyUW', subheader:true },
+					{ name: 'MyUW home', icon: 'mail', href: 'http://google.com' },
+					{ name: 'Browse apps', icon: 'warning', href:'http://google.com'},
+					{ name: 'Notifications', icon: 'warning', href:'http://google.com'},
+					{ name: 'About', icon: 'warning', href:'http://google.com'},
+					{ name: 'Version infomation', icon: 'warning', href:'http://google.com'}
 				];
 			}
 
@@ -29,18 +95,23 @@
 				this.$listContainer.innerHTML = '';
 				this._list.forEach((item, index) => {
 					let $item = document.createElement('li');
-					$item.innerHTML = `
-						<a href="${item.href}">
-							<i class="material-icons">${item.icon}</i>
-							<span>${item.name}</span>
-						</a>
-					`;
+					$item.classList = 'item';
+					if (!item.subheader) {
+						$item.innerHTML = `
+							<a href="${item.href}">
+								<i class="material-icons">${item.icon}</i>
+								<span>${item.name}</span>
+							</a>
+						`;
+					} else {
+						$item.classList = 'item subheader';
+						$item.innerHTML = item.name;
+					}
+
 
 					$item.index = index;
 					this.$listContainer.appendChild($item);
 				});
-
-				this.addEventListener('click', e => { this.toggleDrawer(); });
 			}
 
 			disconnectedCallback() {
@@ -50,14 +121,7 @@
 			attributeChangedCallback(name, oldValue, newValue) {
 				console.log('Custom element attributes changed.');
 			}
-			static get observedAttributes() {
-				return ['open'];
-			}
 
-			toggleDrawer() {
-				this.style.display = 'none'
-				this.removeAttribute('open');
-			}
 		});
 		
 	</script>
