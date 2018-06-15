@@ -5,7 +5,7 @@ Work in progress web component based on Material's app drawer.
 ##Using the component
 * Include script tag for component.
 * Add custom html tag
-```javascript
+```
 	<myuw-drawer open links='{
 		"primary": [   
 			{ "name": "MyUW", "subheader":true },   
