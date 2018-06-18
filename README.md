@@ -8,7 +8,7 @@
 ```html
 <myuw-drawer open links='{
   "primary": [
-    { "name": "MyUW", "subheader":true },
+    { "name": "MyUW", "subheader": true },
     { "name": "MyUW home", "icon": "mail", "href": "http://google.com" },
     { "name": "Browse apps", "icon": "explore", "href":"http://google.com" },
     { "name": "Notifications", "icon": "notifications", "href":"http://google.com" },
