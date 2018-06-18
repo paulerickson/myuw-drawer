@@ -1,6 +1,7 @@
 # `<myuw-drawer open links='...'></myuw-drawer>`
 
 ## Using the component
+
 * Include script tag for component.
 * Add custom html tag
 ```
