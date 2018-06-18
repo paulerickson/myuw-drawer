@@ -5,7 +5,7 @@
 * Include script tag for component.
 * Add custom html tag
 
-```
+```html
 	<myuw-drawer open links='{
 		"primary": [   
 			{ "name": "MyUW", "subheader":true },   
