@@ -1,171 +1,114 @@
 <!DOCTYPE html>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script type="text/javascript">
-	window.customElements.define('myuw-drawer', class extends HTMLElement {
-		constructor() {
-			super();
-			this._root = this.attachShadow({mode: 'open'});
-			this._root.innerHTML = `
-				<style>
-					@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
-					:host {
-						height: 100%;
-						width: 100%;
-						left:-300px;
-						top: 56px;
-						position: absolute;
-						transition: all .4s cubic-bezier(.25, .8, .25, 1);
-					}
-					:host([open]) {
-						left:0;
-					}
-					.drawer {
-						width: 300px;
-						max-width: 300px;
-						height: 100%;
-						z-index: 5;
-						box-shadow: 3px 0 16px -3px rgba(0, 0, 0, 0.4);
-					}
-					ul {
-						padding: 8px 0;
-						list-style: none;
-						margin: 0;
-					}
-					#list-container .item {
-						height: 48px;
-					}
-					#list-container .item a {
-						box-sizing: border-box;
-						text-decoration:none;
-						text-align: left;
-						display: inline-block;
-						margin: auto 0;
-						font-size: 15px;
-						text-transform: none;
-						font-weight: 400;
-						height: 100%;
-						padding-top: 5px;
-						padding-left: 16px;
-						padding-right: 16px;
-						width: 100%;
-					}
-					#list-container .item a:hover{
-						background-color: rgba(158,158,158,0.2);
-					}
-					#list-container .item a span {
-						line-height:36px;
-						cursor:ponter;
-						font-size: 15px;
-						font-weight: 400;
-					}
-					#list-container .item a .material-icons {
-						margin-right: 16px;
-						vertical-align: middle;
-						color: rgba(0,0,0,0.54);
-					}
-					#list-container .item.subheader {
-						padding: 16px;
-						font-weight: bold;
-						height: 100%;
-						color: rgba(0,0,0,0.54);
-						background-color:rgb(250,250,250);
-					}
-					.content-feedback {
-						position: absolute;
-						bottom: 0;
-						border-top: 1px solid rgba(0,0,0,0.12);
-						width: 300px;
-					}
-					#help-feedback {
-						padding: 12px 15px 12px 24px;
-						font-size: 12px;
-					}
-					#help-feedback li {
-						display: inline-block;
-						padding: 2px 5px;
-					}
-				</style>
-				<div class="drawer">
-					<div class="content">
-						<ul id="list-container"></ul>
-					</div>
-					<div class="content-feedback"><ul id="help-feedback"></ul></div>
-				</div>
-			`;
-		}
 
-		static get observedAttributes() {
-			return ['links'];
-		}
+<template id='myuw-drawer'>
+  <style>
+    @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
-		connectedCallback() {
-			console.log('Custom element added to page.');
-			this.$listContainer = this._root.querySelector('#list-container');
-			this.$helpContainer = this._root.querySelector('#help-feedback');
+    #drawer {
+      width: 300px;
+      height: 100%;
+      display: block;
+      position: fixed;
+      left: -300px;
+      top: 64px;
+      bottom: 0;
+      z-index: 5;
+      background-color: white;
+      transition: left .4s cubic-bezier(.25, .8, .25, 1);
+    }
 
-			if (!this.$listContainer) return;
-			this.$listContainer.innerHTML = '';
-			this.$helpContainer.innerHTML = '';
+    #drawer[open="true"] {
+      left: 0;
+    }
+  </style>
 
-			let links = JSON.parse(this.getAttribute('links'));
+  <span>
+    <button id="menu" class="demo__toolbar-button menu">
+      <i class="material-icons">menu</i>
+    </button>
+  </span>
+  <div id="drawer" open="false">
+    <ul>
+      <slot name="myuw-drawer-links"></slot>
+    </ul>
+  </div>
+</template>
 
-			links.primary.forEach((item, index) => {
-				let $item = document.createElement('li');
-				$item.classList = 'item';
-				if (!item.subheader) {
-					$item.innerHTML = `
-						<a href="${item.href}">
-							<i class="material-icons">${item.icon}</i>
-							<span>${item.name}</span>
-						</a>
-					`;
-				} else {
-					$item.classList = 'item subheader';
-					$item.innerHTML = item.name;
-				}
+<script>
+  class MyUWDrawer extends HTMLElement {
+    constructor() {
+      super();
 
+      // Create a shadow-root for this element.
+      this.attachShadow({ mode: 'open' });
 
-				$item.index = index;
-				this.$listContainer.appendChild($item);
-			});
+      // Append the custom HTML template to the shadow-root.
+      this.shadowRoot.appendChild(MyUWDrawer.template.content.cloneNode(true));
 
-			if (links.support.length == 0) {
-				let contentDiv = this._root.querySelector('.content-feedback');
-				contentDiv.remove();
-			}
+      // Initialize component state.
+      this.isDrawerOpen = false;
+    }
 
-			links.support.forEach((item, index) => {
-				let $item = document.createElement('li');
-				$item.classList = 'item';
-					$item.innerHTML = `
-						<a href="${item.href}">${item.name}</a>
-					`;
-				$item.index = index;
-				this.$helpContainer.appendChild($item);
-			});
-		}
+    static get observedAttributes() {
+      return [];
+    }
 
-		disconnectedCallback() {
-			console.log('Custom element removed from page.');
-		}
+    /**
+     * Web component lifecycle hook to updated changed properties.
+     */
+    attributeChangedCallback(name, oldValue, newValue) {
+      // ...
+    }
 
-		attributeChangedCallback(name, oldValue, newValue) {
-			console.log('Custom element attributes changed.');
-		}
+    /**
+     * When the component is first attached to the DOM, get its defined
+     * attributes and listen for scrolling.
+     */
+    connectedCallback() {
+      // Create references to frequently updated elements.
+      this.$button = this.shadowRoot.querySelector('#menu');
+      this.$drawer = this.shadowRoot.querySelector('#drawer');
 
-	});
+      // Attach event listeners.
+      this.$button.addEventListener('click', this.toggleDrawer.bind(this));
+    }
+
+    /**
+     * Clean-up listeners if the component is removed from the DOM.
+     */
+    disconnectedCallback() {
+      this.$button = null;
+      this.$drawer = null;
+    }
+
+    /**
+     * Update the component state depending on changed properties and/or
+     * font loading.
+     */
+    updateComponent(prop, value) {
+      // ...
+    }
+
+    toggleDrawer() {
+      if (this.isDrawerOpen) {
+        this.closeDrawer();
+      } else {
+        this.openDrawer();
+      }
+    }
+
+    closeDrawer() {
+      this.isDrawerOpen = false;
+      this.$drawer.setAttribute('open', false);
+    }
+
+    openDrawer() {
+      this.isDrawerOpen = true;
+      this.$drawer.setAttribute('open', true);
+    }
+  }
+
+  MyUWDrawer.template = (document._currentScript || document.currentScript).ownerDocument.getElementById('myuw-drawer');
+
+  window.customElements.define('myuw-drawer', MyUWDrawer);
 </script>
-<myuw-drawer open links='{
-	"primary": [
-		{ "name": "MyUW", "subheader":true },
-		{ "name": "MyUW home", "icon": "mail", "href": "http://google.com" },
-		{ "name": "Browse apps", "icon": "explore", "href":"http://google.com" },
-		{ "name": "Notifications", "icon": "notifications", "href":"http://google.com" },
-		{ "name": "About", "icon": "info", "href":"http://google.com" },
-		{ "name": "Version infomation", "icon": "help_outline", "href":"http://google.com" }
-	],
-	"support": [
-		{ "name": "Help", "href": "http://google.com" },
-		{ "name": "Feedback", "href": "http://google.com" }
-	]
-}'></myuw-drawer>
