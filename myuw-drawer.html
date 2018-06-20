@@ -8,6 +8,10 @@
       left: 0;
     }
 
+    :host([open]) #shadow {
+      display: block;
+    }
+
     #drawer {
       width: 300px;
       height: 100%;
@@ -26,6 +30,16 @@
       padding: 0;
       list-style: none;
     }
+
+    #shadow {
+      display: none;
+      position: fixed;
+      top: 64px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(33, 33, 33, .48);
+    }
   </style>
 
   <div id="drawer">
@@ -33,6 +47,8 @@
       <slot name="myuw-drawer-links"></slot>
     </ul>
   </div>
+
+  <div id="shadow"></div>
 </template>
 
 <script>
