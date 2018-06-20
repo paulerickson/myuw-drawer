@@ -4,6 +4,10 @@
   <style>
     @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
+    :host([open]) #drawer {
+      left: 0;
+    }
+
     #drawer {
       width: 300px;
       height: 100%;
@@ -17,17 +21,14 @@
       transition: left .4s cubic-bezier(.25, .8, .25, 1);
     }
 
-    #drawer[open="true"] {
-      left: 0;
+    #drawer ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
   </style>
 
-  <span>
-    <button id="menu" class="demo__toolbar-button menu">
-      <i class="material-icons">menu</i>
-    </button>
-  </span>
-  <div id="drawer" open="false">
+  <div id="drawer">
     <ul>
       <slot name="myuw-drawer-links"></slot>
     </ul>
@@ -44,13 +45,12 @@
 
       // Append the custom HTML template to the shadow-root.
       this.shadowRoot.appendChild(MyUWDrawer.template.content.cloneNode(true));
-
-      // Initialize component state.
-      this.isDrawerOpen = false;
     }
 
     static get observedAttributes() {
-      return [];
+      return [
+        'open',
+      ];
     }
 
     /**
@@ -65,20 +65,14 @@
      * attributes and listen for scrolling.
      */
     connectedCallback() {
-      // Create references to frequently updated elements.
-      this.$button = this.shadowRoot.querySelector('#menu');
-      this.$drawer = this.shadowRoot.querySelector('#drawer');
-
-      // Attach event listeners.
-      this.$button.addEventListener('click', this.toggleDrawer.bind(this));
+      // ...
     }
 
     /**
      * Clean-up listeners if the component is removed from the DOM.
      */
     disconnectedCallback() {
-      this.$button = null;
-      this.$drawer = null;
+      // ...
     }
 
     /**
@@ -87,24 +81,6 @@
      */
     updateComponent(prop, value) {
       // ...
-    }
-
-    toggleDrawer() {
-      if (this.isDrawerOpen) {
-        this.closeDrawer();
-      } else {
-        this.openDrawer();
-      }
-    }
-
-    closeDrawer() {
-      this.isDrawerOpen = false;
-      this.$drawer.setAttribute('open', false);
-    }
-
-    openDrawer() {
-      this.isDrawerOpen = true;
-      this.$drawer.setAttribute('open', true);
     }
   }
 
