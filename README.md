@@ -1,4 +1,4 @@
-# `<myuw-drawer open links='...'></myuw-drawer>`
+# `<myuw-drawer> <myuw-drawer-link/> </myuw-drawer>`
 
 ## Using the component
 
