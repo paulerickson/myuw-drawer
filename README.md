@@ -1,4 +1,4 @@
-# `<myuw-drawer open links='...'></myuw-drawer>`
+# `<myuw-drawer> <myuw-drawer-link/> </myuw-drawer>`
 
 ## Using the component
 
@@ -6,24 +6,36 @@
 * Add custom html tag
 
 ```html
-<myuw-drawer open links='{
-  "primary": [
-    { "name": "MyUW", "subheader": true },
-    { "name": "MyUW home", "icon": "mail",
-      "href": "http://google.com" },
-    { "name": "Browse apps", "icon": "explore",
-      "href":"http://google.com" },
-    { "name": "Notifications", "icon": "notifications",
-      "href":"http://google.com" },
-    { "name": "About", "icon": "info", "href":"http://google.com" },
-    { "name": "Version infomation", "icon": "help_outline",
-      "href":"http://google.com" }
-  ],
-  "support": [
-    { "name": "Help", "href": "http://google.com" },
-    { "name": "Feedback", "href": "http://google.com" }
-  ]
-}'></myuw-drawer>
+<myuw-drawer>
+  <myuw-drawer-link
+    slot="myuw-drawer-links"
+    name="MyUW home"
+    icon="mail"
+    href="http://google.com">
+  </myuw-drawer-link>
+  <myuw-drawer-link
+    slot="myuw-drawer-links"
+    name="Browse apps"
+    icon="explore"
+    href="http://google.com">
+  </myuw-drawer-link>
+  <myuw-drawer-link
+    slot="myuw-drawer-links"
+    name="Notifications"
+    icon="notifications"
+    href="http://google.com">
+  </myuw-drawer-link>
+  <myuw-drawer-link
+    slot="myuw-drawer-links"
+    name="About"
+    icon="info"
+    href="http://google.com">
+  </myuw-drawer-link>
+  <myuw-drawer-link
+    slot="myuw-drawer-links"
+    name="Version information"
+    icon="help_outline"
+    href="http://google.com">
+  </myuw-drawer-link>
+</myuw-drawer>
 ```
-
-* Add the `open` attribute to default the drawer to open. Remove attribute to hide.
