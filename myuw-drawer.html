@@ -40,7 +40,20 @@
       left: 0;
       background: rgba(33, 33, 33, .48);
     }
+
+    #menu-icon {
+      user-select: none;
+      cursor: pointer;
+      padding: 7px;
+      border-radius: 100%;
+    }
+
+    #menu-icon:hover {
+      background-color: rgba(0,0,0,0.1);
+    }
   </style>
+
+  <i id="menu-icon" class="material-icons">menu</i>
 
   <div id="drawer">
     <ul>
@@ -81,7 +94,15 @@
      * attributes and listen for scrolling.
      */
     connectedCallback() {
-      // ...
+      
+      this.shadowRoot.getElementById('menu-icon').addEventListener('click', () => {
+        this.setDrawerState();
+      });
+
+      this.shadowRoot.getElementById('shadow').addEventListener('click', () => {
+        this.setDrawerState(false);
+      });
+
     }
 
     /**
@@ -97,6 +118,25 @@
      */
     updateComponent(prop, value) {
       // ...
+    }
+
+    setDrawerState(newState){
+      switch(newState){
+        case false:
+          this.removeAttribute('open');
+          break;
+
+        case true:
+          this.setAttribute('open', '');
+          break;
+
+        default:
+          if(this.hasAttribute('open')){
+            this.removeAttribute('open');
+          } else {
+            this.setAttribute('open', '');
+          }
+      }
     }
   }
 
