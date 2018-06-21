@@ -1,4 +1,4 @@
-# `<myuw-drawer>`
+# `<myuw-drawer> and <myuw-drawer-link>`
 
 A slide out navigation drawer for use with the MyUW App Bar
 
@@ -42,9 +42,15 @@ Add the following imports to your page's `<head>`:
 </myuw-drawer>
 ```
 
-### Configuration / child components
+### Configuration / child components for the drawer
 
 Use the named `<slot>` tags to include child components of the myuw-drawer:
 
 **Available slots:**
 - **myuw-drawer-links**: Insert the `<myuw-drawer-link>` component
+
+### Configurable properties via attributes for the drawer link
+
+- **Link Text (name):** Set the text of the link component
+- **Icon (icon):** The name of a Material icon to appear next to the link
+- **Link URL (href):** The the URL of the link
