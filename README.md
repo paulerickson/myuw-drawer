@@ -16,8 +16,8 @@ $ npm start
 Add the following imports to your page's `<head>`:
 
 ```html
-<link rel="import" href="https://unpkg.com/@myuw-web-components/myuw-drawer@1.0.0/myuw-drawer.html">
-<link rel="import" href="https://unpkg.com/@myuw-web-components/myuw-drawer@1.0.0/myuw-drawer-link.html">
+<script type="module" src="https://unpkg.com/@myuw-web-components/myuw-drawer?module"></script>
+<script nomodule src="https://unpkg.com/@myuw-web-components/myuw-drawer"></script>
 ```
 
 ## Using the component
