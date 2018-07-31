@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <script type="module" src="https://unpkg.com/@myuw-web-components/myuw-app-styles@^1?module"></script>
+        <script nomodule src="https://unpkg.com/@myuw-web-components/myuw-app-styles@^1"></script>
+
+        <script type="module" src="https://unpkg.com/@myuw-web-components/myuw-app-bar@^1?module"></script>
+        <script nomodule src="https://unpkg.com/@myuw-web-components/myuw-app-bar@^1"></script>
+
+        <script type="module" src="./dist/myuw-drawer.mjs"></script>
+        <script nomodule src="./dist/myuw-drawer.js"></script>
+
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <myuw-app-bar
+            theme-name="MyUW"
+            theme-url=""
+            app-name=""
+            app-url=""
+        >
+        <myuw-drawer slot="myuw-navigation" open>
+            <myuw-drawer-link
+              slot="myuw-drawer-links"
+              name="MyUW home"
+              icon="mail"
+              href="http://google.com">
+            </myuw-drawer-link>
+            <myuw-drawer-link
+              slot="myuw-drawer-links"
+              name="Browse apps"
+              icon="explore"
+              href="http://google.com">
+            </myuw-drawer-link>
+            <myuw-drawer-link
+              slot="myuw-drawer-links"
+              name="Notifications"
+              icon="notifications"
+              href="http://google.com">
+            </myuw-drawer-link>
+            <myuw-drawer-link
+              slot="myuw-drawer-links"
+              name="About"
+              icon="info"
+              href="http://google.com">
+            </myuw-drawer-link>
+            <myuw-drawer-link
+              slot="myuw-drawer-links"
+              name="Version information"
+              icon="help_outline"
+              href="http://google.com">
+            </myuw-drawer-link>
+          </myuw-drawer>
+
+    </body>
+</html>
