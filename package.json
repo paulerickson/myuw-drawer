@@ -1,6 +1,6 @@
 {
   "name": "@myuw-web-components/myuw-drawer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A slide out navigation drawer for use with the MyUW App Bar",
   "module": "dist/myuw-drawer.min.mjs",
   "browser": "dist/myuw-drawer.min.js",
