@@ -23,7 +23,10 @@ export class MyUWDrawerLink extends HTMLElement {
    * Web component lifecycle hook to updated changed properties.
    */
   attributeChangedCallback(name, oldValue, newValue) {
-    // ...
+    if(oldValue !== newValue){
+      this[name] = newValue;
+      this.updateComponent(name, newValue);
+    }
   }
 
   /**
@@ -56,7 +59,19 @@ export class MyUWDrawerLink extends HTMLElement {
    * font loading.
    */
   updateComponent(prop, value) {
-    // ...
+    switch(prop){
+      case "href":
+      this.$href.setAttribute('href', this.href);
+        break;
+
+      case "icon":
+      this.$icon.innerText = this.icon;
+        break;
+
+        case "name":
+        this.$name.innerText = this.name;
+          break;
+    }
   }
 }
 
