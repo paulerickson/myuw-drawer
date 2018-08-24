@@ -4,6 +4,8 @@ export class MyUWDrawerLink extends HTMLElement {
   constructor() {
     super();
 
+    this.connected = false;
+
     // Create a shadow-root for this element.
     this.attachShadow({ mode: 'open' });
 
@@ -45,6 +47,8 @@ export class MyUWDrawerLink extends HTMLElement {
     this.$href.setAttribute('href', this.href);
     this.$icon.innerText = this.icon;
     this.$name.innerText = this.name;
+
+    this.connected = true;
   }
 
   /**
@@ -59,6 +63,7 @@ export class MyUWDrawerLink extends HTMLElement {
    * font loading.
    */
   updateComponent(prop, value) {
+    if( !this.connected ){ return; }
     switch(prop){
       case "href":
       this.$href.setAttribute('href', this.href);
