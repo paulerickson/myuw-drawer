@@ -18,17 +18,18 @@ export class MyUWDrawer extends HTMLElement {
   }
 
   /**
-   * Web component lifecycle hook to updated changed properties.
-   */
-  attributeChangedCallback(name, oldValue, newValue) {
-    // ...
-  }
-
-  /**
    * When the component is first attached to the DOM, get its defined
    * attributes and listen for scrolling.
    */
   connectedCallback() {
+
+    this.$container = this.shadowRoot.querySelector('div#drawer-container');
+
+    // Check if initial drawer state is open by default
+    if (this.hasAttribute('open')) {
+      this.removeAttribute('open');
+      this.$container.setAttribute('open', '');
+    }
 
     this.shadowRoot.getElementById('menu-icon').addEventListener('click', () => {
       this.setDrawerState();
@@ -37,7 +38,13 @@ export class MyUWDrawer extends HTMLElement {
     this.shadowRoot.getElementById('shadow').addEventListener('click', () => {
       this.setDrawerState(false);
     });
+  }
 
+  /**
+   * Web component lifecycle hook to updated changed properties.
+   */
+  attributeChangedCallback(name, oldValue, newValue) {
+    // ...
   }
 
   /**
@@ -55,21 +62,21 @@ export class MyUWDrawer extends HTMLElement {
     // ...
   }
 
-  setDrawerState(newState){
-    switch(newState){
+  setDrawerState(newState) {
+    switch(newState) {
       case false:
-        this.removeAttribute('open');
+        this.$container.removeAttribute('open');
         break;
 
       case true:
-        this.setAttribute('open', '');
+        this.$container.setAttribute('open', '');
         break;
 
       default:
-        if(this.hasAttribute('open')){
-          this.removeAttribute('open');
+        if(this.$container.hasAttribute('open')) {
+          this.$container.removeAttribute('open');
         } else {
-          this.setAttribute('open', '');
+          this.$container.setAttribute('open', '');
         }
     }
   }

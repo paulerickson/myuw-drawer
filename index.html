@@ -1,5 +1,22 @@
 <html>
     <head>
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            myuw-drawer[open]::shadow #drawer {
+    left: 0;
+  }
+
+  myuw-drawer[open]::shadow #shadow {
+    display: block;
+  }
+        </style>
+
+        <!-- Polyfill loader -->
+        <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
+
         <script type="module" src="https://unpkg.com/@myuw-web-components/myuw-app-styles@^1?module"></script>
         <script nomodule src="https://unpkg.com/@myuw-web-components/myuw-app-styles@^1"></script>
 
@@ -8,13 +25,6 @@
 
         <script type="module" src="./dist/myuw-drawer.mjs"></script>
         <script nomodule src="./dist/myuw-drawer.js"></script>
-
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }
-        </style>
     </head>
     <body>
         <myuw-app-bar
