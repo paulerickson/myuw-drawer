@@ -1,7 +1,7 @@
 var MyUWDrawer = (function (exports) {
   'use strict';
 
-  var tpl = " <style> @import url(https://fonts.googleapis.com/icon?family=Material+Icons);\n\n  :host([open]) #drawer {\n    left: 0;\n  }\n\n  :host([open]) #shadow {\n    display: block;\n  }\n\n  #drawer {\n    width: 300px;\n    height: 100%;\n    display: block;\n    position: fixed;\n    left: -300px;\n    top: 64px;\n    bottom: 0;\n    z-index: 5;\n    background-color: white;\n    transition: left .4s cubic-bezier(.25, .8, .25, 1);\n  }\n\n  #drawer ul {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n  }\n\n  #shadow {\n    display: none;\n    position: fixed;\n    top: 64px;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background: rgba(33, 33, 33, .48);\n  }\n\n  #menu-icon {\n    user-select: none;\n    cursor: pointer;\n    padding: 7px;\n    border-radius: 100%;\n  }\n\n  #menu-icon:hover {\n    background-color: rgba(0,0,0,0.1);\n  } </style> <i id=\"menu-icon\" class=\"material-icons\">menu</i> <div id=\"drawer\"> <ul> <slot name=\"myuw-drawer-links\"></slot> </ul> </div> <div id=\"shadow\"></div> ";
+  var tpl = " <style> @import url(https://fonts.googleapis.com/icon?family=Material+Icons);\n\n  #drawer-container[open] #drawer {\n    left: 0;\n  }\n\n  #drawer-container[open] #shadow {\n    display: block;\n  }\n\n  #drawer {\n    width: 300px;\n    height: 100%;\n    display: block;\n    position: fixed;\n    left: -300px;\n    top: 64px;\n    bottom: 0;\n    z-index: 5;\n    background-color: white;\n    transition: left .4s cubic-bezier(.25, .8, .25, 1);\n  }\n\n  #drawer ul {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n  }\n\n  #shadow {\n    display: none;\n    position: fixed;\n    top: 64px;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background: rgba(33, 33, 33, .48);\n  }\n\n  #menu-icon {\n    user-select: none;\n    cursor: pointer;\n    padding: 7px;\n    border-radius: 100%;\n  }\n\n  #menu-icon:hover {\n    background-color: rgba(0,0,0,0.1);\n  } </style> <div id=\"drawer-container\"> <i id=\"menu-icon\" class=\"material-icons\">menu</i> <div id=\"drawer\"> <ul> <slot name=\"myuw-drawer-links\"></slot> </ul> </div> <div id=\"shadow\"></div> </div> ";
 
   class MyUWDrawer extends HTMLElement {
     constructor() {
@@ -21,17 +21,18 @@ var MyUWDrawer = (function (exports) {
     }
 
     /**
-     * Web component lifecycle hook to updated changed properties.
-     */
-    attributeChangedCallback(name, oldValue, newValue) {
-      // ...
-    }
-
-    /**
      * When the component is first attached to the DOM, get its defined
      * attributes and listen for scrolling.
      */
     connectedCallback() {
+
+      this.$container = this.shadowRoot.querySelector('div#drawer-container');
+
+      // Check if initial drawer state is open by default
+      if (this.hasAttribute('open')) {
+        this.removeAttribute('open');
+        this.$container.setAttribute('open', '');
+      }
 
       this.shadowRoot.getElementById('menu-icon').addEventListener('click', () => {
         this.setDrawerState();
@@ -40,7 +41,13 @@ var MyUWDrawer = (function (exports) {
       this.shadowRoot.getElementById('shadow').addEventListener('click', () => {
         this.setDrawerState(false);
       });
+    }
 
+    /**
+     * Web component lifecycle hook to updated changed properties.
+     */
+    attributeChangedCallback(name, oldValue, newValue) {
+      // ...
     }
 
     /**
@@ -58,21 +65,21 @@ var MyUWDrawer = (function (exports) {
       // ...
     }
 
-    setDrawerState(newState){
-      switch(newState){
+    setDrawerState(newState) {
+      switch(newState) {
         case false:
-          this.removeAttribute('open');
+          this.$container.removeAttribute('open');
           break;
 
         case true:
-          this.setAttribute('open', '');
+          this.$container.setAttribute('open', '');
           break;
 
         default:
-          if(this.hasAttribute('open')){
-            this.removeAttribute('open');
+          if(this.$container.hasAttribute('open')) {
+            this.$container.removeAttribute('open');
           } else {
-            this.setAttribute('open', '');
+            this.$container.setAttribute('open', '');
           }
       }
     }
@@ -91,6 +98,8 @@ var MyUWDrawer = (function (exports) {
   class MyUWDrawerLink extends HTMLElement {
     constructor() {
       super();
+
+      this.connected = false;
 
       // Create a shadow-root for this element.
       this.attachShadow({ mode: 'open' });
@@ -111,7 +120,10 @@ var MyUWDrawer = (function (exports) {
      * Web component lifecycle hook to updated changed properties.
      */
     attributeChangedCallback(name, oldValue, newValue) {
-      // ...
+      if(oldValue !== newValue){
+        this[name] = newValue;
+        this.updateComponent(name, newValue);
+      }
     }
 
     /**
@@ -130,6 +142,8 @@ var MyUWDrawer = (function (exports) {
       this.$href.setAttribute('href', this.href);
       this.$icon.innerText = this.icon;
       this.$name.innerText = this.name;
+
+      this.connected = true;
     }
 
     /**
@@ -144,7 +158,20 @@ var MyUWDrawer = (function (exports) {
      * font loading.
      */
     updateComponent(prop, value) {
-      // ...
+      if( !this.connected ){ return; }
+      switch(prop){
+        case "href":
+        this.$href.setAttribute('href', this.href);
+          break;
+
+        case "icon":
+        this.$icon.innerText = this.icon;
+          break;
+
+          case "name":
+          this.$name.innerText = this.name;
+            break;
+      }
     }
   }
 
