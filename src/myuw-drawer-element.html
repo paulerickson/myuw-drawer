@@ -2,11 +2,11 @@
 <style>
   @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
-  :host([open]) #drawer {
+  #drawer-container[open] #drawer {
     left: 0;
   }
 
-  :host([open]) #shadow {
+  #drawer-container[open] #shadow {
     display: block;
   }
 
@@ -51,12 +51,14 @@
   }
 </style>
 
-<i id="menu-icon" class="material-icons">menu</i>
+<div id='drawer-container'>
+    <i id="menu-icon" class="material-icons">menu</i>
 
-<div id="drawer">
-  <ul>
-    <slot name="myuw-drawer-links"></slot>
-  </ul>
+    <div id="drawer">
+      <ul>
+        <slot name="myuw-drawer-links"></slot>
+      </ul>
+    </div>
+    
+    <div id="shadow"></div>  
 </div>
-
-<div id="shadow"></div>
