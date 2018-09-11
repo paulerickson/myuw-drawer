@@ -23,19 +23,24 @@ export class MyUWDrawer extends HTMLElement {
    */
   connectedCallback() {
 
-    this.$container = this.shadowRoot.querySelector('div#drawer-container');
+    this.$container   = this.shadowRoot.querySelector('div#drawer-container');
+    this.$drawerSlot  = this.shadowRoot.querySelector('slot');
+    this.$button      = this.shadowRoot.getElementById('drawer-button');
+    this.$shadow      = this.shadowRoot.getElementById('shadow')
 
     // Check if initial drawer state is open by default
     if (this.hasAttribute('open')) {
       this.removeAttribute('open');
       this.$container.setAttribute('open', '');
+      this.$drawerSlot.removeAttribute('tabindex');
+      
     }
 
-    this.shadowRoot.getElementById('menu-icon').addEventListener('click', () => {
+    this.$button.addEventListener('click', () => {
       this.setDrawerState();
     });
 
-    this.shadowRoot.getElementById('shadow').addEventListener('click', () => {
+    this.$shadow.addEventListener('click', () => {
       this.setDrawerState(false);
     });
   }
@@ -66,17 +71,21 @@ export class MyUWDrawer extends HTMLElement {
     switch(newState) {
       case false:
         this.$container.removeAttribute('open');
+        this.$drawerSlot.setAttribute('tabindex', '-1');
         break;
 
       case true:
         this.$container.setAttribute('open', '');
+        this.$drawerSlot.removeAttribute('tabindex');
         break;
 
       default:
         if(this.$container.hasAttribute('open')) {
           this.$container.removeAttribute('open');
+          this.$drawerSlot.setAttribute('tabindex', '-1');
         } else {
           this.$container.setAttribute('open', '');
+          this.$drawerSlot.removeAttribute('tabindex');
         }
     }
   }
