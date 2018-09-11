@@ -39,26 +39,44 @@
     background: rgba(33, 33, 33, .48);
   }
 
-  #menu-icon {
+  #drawer-button {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    min-height: 36px;
+    min-width: 48px;
     user-select: none;
     cursor: pointer;
-    padding: 7px;
-    border-radius: 100%;
+    margin: 0;
+    border: 0;
+    padding: 0 6px;
+    border-radius: 3px;
+    background-color: transparent;
+    -webkit-transition: background-color .3s cubic-bezier(.35,0,.25,1);
+    transition: background-color .3s cubic-bezier(.35,0,.25,1);
   }
 
-  #menu-icon:hover {
-    background-color: rgba(0,0,0,0.1);
+  #drawer-button:hover {
+    background-color: rgba(0,0,0,0.2);
+  }
+
+  #menu-icon {
+    color: var(--myuw-primary-color, #fff);
+    fill: var(--myuw-primary-color, #fff);
+    font-size: 26px;
   }
 </style>
 
-<div id='drawer-container'>
-    <i id="menu-icon" class="material-icons">menu</i>
-
-    <div id="drawer">
-      <ul>
-        <slot name="myuw-drawer-links"></slot>
-      </ul>
-    </div>
+<div id="drawer-container">
+  <button id="drawer-button" aria-label="open navigation drawer">
+      <i id="menu-icon" class="material-icons">menu</i>
+  </button>
+  
+  <div id="drawer">
+    <ul>
+      <slot name="myuw-drawer-links" tabindex="-1"></slot>
+    </ul>
+  </div>
     
-    <div id="shadow"></div>  
+  <div id="shadow"></div>  
 </div>

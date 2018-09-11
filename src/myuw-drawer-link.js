@@ -40,7 +40,7 @@ export class MyUWDrawerLink extends HTMLElement {
     this.icon = this.getAttribute('icon') || null;
     this.name = this.getAttribute('name') || null;
 
-    this.$href = this.shadowRoot.querySelector('a#href');
+    this.$href = this.shadowRoot.querySelector('a#drawer-link');
     this.$icon = this.shadowRoot.querySelector('i#icon');
     this.$name = this.shadowRoot.querySelector('span#name');
 
