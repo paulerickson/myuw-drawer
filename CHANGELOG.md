@@ -1,5 +1,9 @@
 # myuw-drawer changes
 
+## 1.0.5
+
+* Add standard top-bar button margin to keep in sync with other button components
+
 ## 1.0.4
 
 This patch brings a couple accessibility impovements: 
