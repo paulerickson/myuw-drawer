@@ -54,3 +54,7 @@ Use the named `<slot>` tags to include child components of the myuw-drawer:
 - **Link Text (name):** Set the text of the link component
 - **Icon (icon):** The name of a Material icon to appear next to the link
 - **Link URL (href):** The the URL of the link
+
+
+Cross-browser testing provided by:<br/>
+<a href="https://www.browserstack.com/"><img width="160" src="https://myuw-web-components.github.io/img/Browserstack-logo.svg" alt="BrowserStack"/></a>
