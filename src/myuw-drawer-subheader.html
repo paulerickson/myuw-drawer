@@ -3,10 +3,20 @@
   #label {
     padding: 16px 16px 4px 22px;
     display: inline-block;
-    color: rgba(0, 0, 0, .54);;
+    color: rgba(0, 0, 0, .6);
+    user-select: none;
+  }
+
+  #divider {
+    display: none;
+    height: 0;
+    border: none;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(0,0,0,.12);
+    margin-top: 4px;
   }
 </style>
 
-<li>
-  <slot id="label" name="label"></slot>
-</li>
+<span id="divider"></span>
+<li id="label"></li>
