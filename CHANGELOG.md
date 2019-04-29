@@ -1,5 +1,10 @@
 # myuw-drawer changes
 
+## 1.1.0
+
+* Add divider attribute to subheader
+* Change subheader to use attribute for "name" instead of a slot
+
 ## 1.0.5
 
 * Add standard top-bar button margin to keep in sync with other button components
