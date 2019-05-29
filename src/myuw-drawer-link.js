@@ -26,7 +26,7 @@ export class MyUWDrawerLink extends HTMLElement {
    */
   attributeChangedCallback(name, oldValue, newValue) {
     // Safefly reference variables
-    if (typeof this[name] !== null) {
+    if (this.connected && typeof this[name] !== null) {
       // Update if the attribute is different than before
       if(oldValue !== newValue){
         this[name] = newValue;
