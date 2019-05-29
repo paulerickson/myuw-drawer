@@ -25,9 +25,13 @@ export class MyUWDrawerLink extends HTMLElement {
    * Web component lifecycle hook to updated changed properties.
    */
   attributeChangedCallback(name, oldValue, newValue) {
-    if(oldValue !== newValue){
-      this[name] = newValue;
-      this.updateComponent(name, newValue);
+    // Safefly reference variables
+    if (typeof this[name] !== null) {
+      // Update if the attribute is different than before
+      if(oldValue !== newValue){
+        this[name] = newValue;
+        this.updateComponent(name, newValue);
+      }
     }
   }
 
