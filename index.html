@@ -6,12 +6,17 @@
                 margin: 0;
             }
             myuw-drawer[open]::shadow #drawer {
-    left: 0;
-  }
+              left: 0;
+            }
 
-  myuw-drawer[open]::shadow #shadow {
-    display: block;
-  }
+            myuw-drawer[open]::shadow #shadow {
+              display: block;
+            }
+            .demo__content {
+              margin: 24px;
+              padding: 24px;
+              background: #ddd;
+            }
         </style>
 
         <script src="https://unpkg.com/css-vars-ponyfill@1"></script>
@@ -31,55 +36,76 @@
         <script nomodule src="./dist/myuw-drawer.js"></script>
     </head>
     <body>
-        <myuw-app-bar
-            theme-name="MyUW"
-            theme-url=""
-            app-name=""
-            app-url=""
-        >
+      <myuw-app-bar
+        theme-name="MyUW"
+        theme-url=""
+        app-name=""
+        app-url="">
         <myuw-drawer slot="myuw-navigation" open>
-            <myuw-drawer-link
-              slot="myuw-drawer-links"
-              name="MyUW home"
-              icon="mail"
-              href="http://google.com">
-            </myuw-drawer-link>
-            <myuw-drawer-link
-              slot="myuw-drawer-links"
-              name="Browse apps"
-              icon="explore"
-              href="http://google.com">
-            </myuw-drawer-link>
-            <myuw-drawer-link
-              slot="myuw-drawer-links"
-              name="Notifications"
-              icon="notifications"
-              href="http://google.com">
-            </myuw-drawer-link>
-            <myuw-drawer-link
-              slot="myuw-drawer-links"
-              name="About"
-              icon="info"
-              href="http://google.com">
-            </myuw-drawer-link>
-            <myuw-drawer-link
-              slot="myuw-drawer-links"
-              name="Version information"
-              icon="help_outline"
-              href="http://google.com">
-            </myuw-drawer-link>
-            <myuw-drawer-subheader
-              slot="myuw-drawer-links"
-              divider="true"
-              name="Subheader">
-            </myuw-drawer-subheader>
-            <myuw-drawer-link
-              slot="myuw-drawer-links"
-              name="Subnav item"
-              icon=""
-              href="#">
-            </myuw-drawer-link>
-          </myuw-drawer>
+          <myuw-drawer-link id="demo-link"
+            slot="myuw-drawer-links"
+            name="MyUW home"
+            icon="mail"
+            href="http://google.com">
+          </myuw-drawer-link>
+          <myuw-drawer-link
+            slot="myuw-drawer-links"
+            name="Browse apps"
+            icon="explore"
+            href="http://google.com">
+          </myuw-drawer-link>
+          <myuw-drawer-link
+            slot="myuw-drawer-links"
+            name="Notifications"
+            icon="notifications"
+            href="http://google.com">
+          </myuw-drawer-link>
+          <myuw-drawer-link
+            slot="myuw-drawer-links"
+            name="About"
+            icon="info"
+            href="http://google.com">
+          </myuw-drawer-link>
+          <myuw-drawer-subheader
+            slot="myuw-drawer-links"
+            divider="true"
+            name="Subheader">
+          </myuw-drawer-subheader>
+          <myuw-drawer-link
+            slot="myuw-drawer-links"
+            name="Subnav item"
+            icon=""
+            href="#">
+          </myuw-drawer-link>
+        </myuw-drawer>
+      </myuw-app-bar>
+      <div class="demo__content">
+        <h1>Change first link attributes</h1>
+        <form name="demoForm" onsubmit="event.preventDefault();changeDemoLink();">
+          <label for="linkText">Link text: &nbsp;&nbsp;</label>
+          <input type="text" id="linkText">
+          <br>
+          <label for="linkIcon">Icon name: &nbsp;&nbsp;</label>
+          <input type="text" id="linkIcon">
+          <br>
+          <label for="linkUrl">URL: &nbsp;&nbsp;</label>
+          <input type="text" id="linkUrl">
+          <p></p>
+          <button onclick="changeDemoLink()">Submit</button>
+        </form>
+      </div>
 
+      <script>
+        function changeDemoLink() {
+          var text = document.getElementById('linkText').value;
+          var icon = document.getElementById('linkIcon').value;
+          var url = document.getElementById('linkUrl').value;
+          var drawerLink = document.getElementById('demo-link');
+
+          drawerLink.setAttribute('name', text);
+          drawerLink.setAttribute('icon', icon);
+          drawerLink.setAttribute('href', url);
+        }
+      </script>
     </body>
 </html>

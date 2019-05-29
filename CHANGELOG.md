@@ -1,5 +1,9 @@
 # myuw-drawer changes
 
+## 1.1.1
+
+* Fix cases where component might try to update a null or undefined variable
+
 ## 1.1.0
 
 * Add divider attribute to subheader
