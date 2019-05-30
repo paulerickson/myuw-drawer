@@ -1,6 +1,6 @@
 # myuw-drawer changes
 
-## 1.2.1
+## 1.2.0
 
 * Show subheader if "divider" attribute is present (existing implementations unaffected)
 * Subheader "name" attribute no longer required (allows displaying a divider without a subheader)
