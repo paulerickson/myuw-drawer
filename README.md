@@ -1,6 +1,6 @@
 # `<myuw-drawer> and <myuw-drawer-link>`
 
-A slide out navigation drawer for use with the MyUW App Bar
+A three-part slide out navigation drawer for use with the MyUW App Bar. Includes drawer, links, and optional subheaders with dividers.
 
 ## Development and contribution
 
@@ -33,6 +33,11 @@ Add the following imports to your page's `<head>`:
     icon="mail"
     href="http://google.com">
   </myuw-drawer-link>
+  <myuw-drawer-subheader
+    slot="myuw-drawer-links"
+    name="Subheader"
+    divider>
+  </myuw-drawer-subheader>
   <myuw-drawer-link
     slot="myuw-drawer-links"
     name="Browse apps"
@@ -47,13 +52,18 @@ Add the following imports to your page's `<head>`:
 Use the named `<slot>` tags to include child components of the myuw-drawer:
 
 **Available slots:**
-- **myuw-drawer-links**: Insert the `<myuw-drawer-link>` component
+- **myuw-drawer-links**: Insert the `<myuw-drawer-link>` or `<myuw-drawer-subheader>` component
 
-### Configurable properties via attributes for the drawer link
+### Drawer link configurable attributes
 
-- **Link Text (name):** Set the text of the link component
-- **Icon (icon):** The name of a Material icon to appear next to the link
-- **Link URL (href):** The the URL of the link
+- **name:** Set the text of the link component
+- **icon:** The name of a Material icon to appear next to the link
+- **href:** The the URL of the link
+
+### Subheader configurable attributes
+
+- **name:** Set the text of the subheader
+- **divider:** Display a dividing line above the subheader (will display if attribute is present, no value required)
 
 
 Cross-browser testing provided by:<br/>
