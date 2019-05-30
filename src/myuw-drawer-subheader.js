@@ -21,13 +21,11 @@ export class MyUWDrawerSubheader extends HTMLElement {
   connectedCallback() {
     // Get attributes and assign elements
     this['name']    = this.getAttribute('name') || '';
-    this['divider'] = this.getAttribute('divider') == 'true' ? true : false;
 
     this.$label   = this.shadowRoot.getElementById('label');
     this.$divider = this.shadowRoot.getElementById('divider');
 
-    if (this.$label != null 
-      && this['name'].length > 0) {
+    if (this.$label && this.$divider) {
       this.updateComponent();
     }
   }
@@ -36,7 +34,7 @@ export class MyUWDrawerSubheader extends HTMLElement {
     // Update the attribute internally
     this[name] = newValue;
     // Update the component
-    if (this.$label) {
+    if (this.$label && this.$divider) {
       this.updateComponent();
     }
   }
@@ -46,7 +44,7 @@ export class MyUWDrawerSubheader extends HTMLElement {
     this.$label.innerHTML = `<span>${this['name']}</span>`;
 
     // Display divider
-    if (this['divider'] === true) {
+    if (this.hasAttribute('divider')) {
       this.$divider.style.display = 'block';
     }
   }
